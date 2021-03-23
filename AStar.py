@@ -33,81 +33,64 @@ class Graph:
     for x in range(int(howMany)):
         temp = []
         citiesCoord.append(str(input("Cities")))
-        coordsX =int(input("Input Coord X"))
+        coordsX = int(input("Input Coord X"))
         coordsy = int(input("Input Coord y"))
         temp.append(coordsX)
         temp.append(coordsy)
         cities[citiesCoord[x]] = temp
     # print(cities["A"])
     # print(cities["A"][0])
+
+
+    def connections(cities):
+        adjacent_list = {}
+        for x in cities:
+            tempArr = []
+            connection = int(input("How many Connection ? "))
+            for j in range(connection):
+                # for z in range(1):
+                cityConnect = str(input("City Name"))
+                cityCoord = int(input("City Coord"))
+                tempCoord = (cityConnect, cityCoord)
+                tempArr.append(tempCoord)
+                # tempArr.append(cityCoord)
+                adjacent_list[x] = tempArr
+        return adjacent_list
+          #adjacent_list[x] =
+
+    # print(cities[0])
     for x in cities:
         print(cities[x][0], cities[x][1])
     # print(cities)
-    def Heuristic(city):
+    endGoal = str(input("What is the Destinations? "))
+    def Heuristic(city,end):
         temporarryArr = []
         for x in city:
-            if city[x] != city["C"]:
-                temporarryArr.append((sqrt((city[x][0] - city["C"][0])**2) + ((city[x][1] - city["C"][1])**2)))
+            if city[x] != city[end]:
+                temporarryArr.append((sqrt(((city[x][0] - city[end][0])**2) + ((city[x][1] - city[end][1])**2))))
         return temporarryArr;
-    # heuristics(cities)
-    # for x in cities:
-    #     print(x)
-    print(len(cities));
-    print(Heuristic(cities))
 
-    def HeuristicsValue(citiesHeuristic, tempArr):
+    # print(len());
+    # adjacent_list = {
+    # for x in cities:
+    #
+    # }
+    print(Heuristic(cities,endGoal))
+
+    def HeuristicsValue(citiesHeuristic, tempArr,end):
         valueH = {}
         j = 0;
         for x in citiesHeuristic:
-            # j = 0;
-
-            if x != "C":
-            # valueH[citiesHeuristic[x]] = "alo"
-            # j + 1;
-
-
+            if x != end:
                 valueH[x] = tempArr[j]
-                # print(j)
                 j += 1;
-                # print(x)
         return valueH;
-
-    print(HeuristicsValue(cities, Heuristic(cities)), "This is Heuristic Value")
-
-        # for x in range (citiesHeuristic):
-        #     valueH[x] = tempArr[]
+    print(HeuristicsValue(cities, Heuristic(cities,endGoal),endGoal), "This is Heuristic Value")
+    print(cities)
+    print(connections(cities))
 
 
-     # h = sqrt ( (current_cell.x – goal.x)2 +
-     #            (current_cell.y – goal.y)2 )
-
-
-    # def functionH(self,cities):
-    #     J = cities
-    # def heuristics(self,cities, startGoal, endGoal):
-    #     for x in cities:
-    #
-
-        #     {
-        #     'coordsX': int(input("Input Coord X")),
-        #     'coordsY': int(input("input Coord Y"))
-        # }
-
-    # print(cities)       # temp = []
-        # coordsX = int(input("Coordinate X"))
-        # coordsy = int(input("Coordinate y"))
-        # temp[x].append(coordsX).append(coordsy)
-
-        # citiesCoord.append(str(input("Cities")))
-        # cities[citiesCoord[x]].append(temp[x])
-        #     {
-        #     'coordsX': int(input("Input Coord X")),
-        #     'coordsY': int(input("input Coord Y"))
-        # }
-
-    # def heuristics(self,totCities, startCoord, endCoord):
-    #     for x in totCities:
-    #         startCoord[x]
+    adjacent_list = {}
 
     def a_star_algorithm(self, start_node, stop_node):
         # open_list is a list of nodes which have been visited, but who's neighbors
@@ -194,6 +177,9 @@ adjacency_list = {'A': [('B', 7), ('D', 6)],
 'B': [('C', 5), ('E', 10)],
 'C': [('E', 5)],
 'D': [('E', 4)]}
+
+
+
 # print(adjacency_list)
 
 # graph1 = Graph(adjacency_list)
