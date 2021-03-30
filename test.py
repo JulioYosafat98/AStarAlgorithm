@@ -1,34 +1,23 @@
-class cities:
-    def __init__(self, xcord, ycord):
-        self.xcord = xcord
-        self.ycord = ycord
-    def __repr__(self):
-        return (self.xcord, self.ycord)
-
-class goal:
-    def __init__(self, xcord, ycord):
-        self.xcord = xcord
-        self.ycord = ycord
-
-
-a = cities(10, 10)
-b = cities(15, 13)
-c = cities(15, 8)
-d = goal(20, 10)
-
+cities =  {
+  "a": [10,20],
+  "b": [24,10],
+  "c":[24,28],
+  "d":[41,29],
+  "e":[60,20]
+}
 connection = {
-    "a": [["b", 4],
-          ["c", 1]],
-    "b":[["c", 10],
-          ["d", 1]],
-    "c":[["b",10],
-        ["d", 5]],
+    "a": [["b", 5],
+          ["e", 100],
+          ["c",10]],
+    "b":[["e", 5]],
+    "c":[["d", 10]],
+    "d":[["e",10]]
 }
 
 
-def heuristic(cities, goal):
-    dx = abs(cities.xcord - goal.xcord)
-    dy = abs(cities.ycord - goal.ycord)
+def heuristic(cities, start, goal):
+    dx = abs(cities[start][0] - cities[goal][0])
+    dy = abs(cities[start][1] - cities[goal][1])
     return dx + dy
 
 
@@ -39,17 +28,16 @@ def fcost(g, h):
 open_list = []
 closed_list = []
 open_list.append('a')
-Fcost = {'a': fcost(0, heuristic(a, c))}
+Fcost = {'a': fcost(0, heuristic(cities,'a', 'e'))}
 diffPath = 0
 parent={}
-while len(open_list) >0:
-    current = sorted(Fcost, reverse=False)[0]
-
+while open_list:
+    current = sorted(Fcost.items(), key=lambda x: x[1], reverse=False)[0][0]
     if current in open_list:
         open_list.remove(current)
         closed_list.append(current)
 
-    if current == 'd':
+    if current == 'e':
         print("the end")
         print(parent)
         break
@@ -65,8 +53,9 @@ while len(open_list) >0:
                                 diffPath =(connection[j][0][-1] + new_path[-1])
 
         if diffPath < neighbour[-1] or neighbour[0] not in open_list:
-            Fcost[neighbour[0]] = fcost(neighbour[-1], heuristic(b, d))
-            parent[current] = neighbour[0]
+            Fcost[neighbour[0]] = fcost(neighbour[-1], heuristic(cities,neighbour[0], "e"))
+            parent[current] = neighbour
             if neighbour[0] not in open_list:
                 open_list.append(neighbour[0])
+        diffPath = 0
     Fcost.pop(current)
