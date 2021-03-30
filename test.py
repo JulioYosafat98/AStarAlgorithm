@@ -16,13 +16,6 @@ b = cities(15, 13)
 c = cities(15, 8)
 d = goal(20, 10)
 
-cities {
-    "a" : cities(10, 10),
-    "b" : cities(15, 13),
-    "c" : cities(15, 8),
-    "d" : goal(20, 10)
-}
-
 connection = {
     "a": [["b", 4],
           ["c", 1]],
