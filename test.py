@@ -1,17 +1,24 @@
+def cost(closelist,cities):
+    parent = closelist[0]
+    finalCost = 0;
+    for urutan in range(1,len(closelist)):
+        for x in cities:
+            if x == parent:
+                for y in range(len(cities[x])):
+                    if cities[x][y][0] == closelist[urutan]:
+                        finalCost+=cities[x][y][1]
+                parent = closelist[urutan]
+    return finalCost
+
 cities =  {
-  "a": [10,20],
-  "b": [24,10],
-  "c":[24,28],
-  "d":[41,29],
-  "e":[60,20]
+  "a": [1,1],
+  "b": [2,2],
+  "c":[3,3],
 }
 connection = {
-    "a": [["b", 5],
-          ["e", 1],
-          ["c",10]],
-    "b":[["e", 5]],
-    "c":[["d", 10]],
-    "d":[["e",10]]
+    "a": [["b", 1],
+          ["c",4]],
+    "b":[["c", 1]]
 }
 
 def heuristic(cities, start, goal):
@@ -26,7 +33,7 @@ childs = []
 open_list = []
 closed_list = []
 open_list.append('a')
-Fcost = {'a': fcost(0, heuristic(cities,'a', 'e'))}
+Fcost = {'a': fcost(0, heuristic(cities,'a', 'c'))}
 diffPath = 0
 parent={}
 while open_list:
@@ -36,9 +43,9 @@ while open_list:
         open_list.remove(current)
         closed_list.append(current)
 
-    if current == 'e':
-        print("the end")
+    if current == 'c':
         print(closed_list)
+        print(cost(closed_list,connection))
         break
     for neighbour in connection[current]:
         if neighbour in closed_list:
@@ -52,7 +59,7 @@ while open_list:
                                 diffPath =(connection[j][0][-1] + new_path[-1])
 
         if diffPath < neighbour[-1] or neighbour[0] not in open_list:
-            Fcost[neighbour[0]] = fcost(neighbour[-1], heuristic(cities,neighbour[0], "e"))
+            Fcost[neighbour[0]] = fcost(neighbour[-1], heuristic(cities,neighbour[0], "c"))
             childs.append(neighbour)
             parent[current] = childs
             if neighbour[0] not in open_list:
