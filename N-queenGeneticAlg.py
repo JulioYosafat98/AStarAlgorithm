@@ -1,4 +1,5 @@
 import random
+from time import *
 from time import process_time
 
 list_of_boards = []
@@ -134,3 +135,5 @@ elif (t1_stop - t1_start) >=60.00 and (t1_stop - t1_start) < 3599.99:
 else:
     res = (t1_stop - t1_start) / 3600
     print("Elapsed time during the whole program in hours:{:.2f}".format(res))
+sleep(10)
+
